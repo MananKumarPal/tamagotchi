@@ -55,3 +55,21 @@ runner.build_configurations.each do |config|
 end
 
 project.save
+
+# App Groups need an explicit App ID, so declare the capability for automatic
+# signing. Without this Xcode falls back to the wildcard profile and fails.
+project = Xcodeproj::Project.open('ios/Runner.xcodeproj')
+attributes = project.root_object.attributes['TargetAttributes'] ||= {}
+project.targets.select { |t| %w[Runner EgglingWidget].include?(t.name) }.each do |target|
+  entry = attributes[target.uuid] ||= {}
+  entry['DevelopmentTeam'] = '54ZN96X4UY'
+  entry['ProvisioningStyle'] = 'Automatic'
+  entry['SystemCapabilities'] = { 'com.apple.ApplicationGroups.iOS' => { 'enabled' => 1 } }
+  target.build_configurations.each do |config|
+    config.build_settings['CODE_SIGN_STYLE'] = 'Automatic'
+    config.build_settings['DEVELOPMENT_TEAM'] = '54ZN96X4UY'
+    config.build_settings.delete('PROVISIONING_PROFILE_SPECIFIER')
+    config.build_settings['CODE_SIGN_IDENTITY'] = 'Apple Development'
+  end
+end
+project.save
