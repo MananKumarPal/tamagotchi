@@ -1,0 +1,22 @@
+<resources>
+    <string name="widget_description">See how your pet is doing, and feed it from here.</string>
+    <style name="WidgetKeyFrame">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/widget_key_outline</item>
+        <item name="android:padding">2.5dp</item>
+    </style>
+    <style name="WidgetKey">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:background">@drawable/widget_key</item>
+        <item name="android:textColor">#1B1033</item>
+        <item name="android:textSize">13sp</item>
+                <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:padding">0dp</item>
+    </style>
+</resources>
